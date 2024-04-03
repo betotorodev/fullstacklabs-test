@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
@@ -24,8 +25,8 @@ server.post('/battle', (req, res) => {
     return res.status(400).jsonp({ message: 'Missing ID' });
   }
 
-  const monster1 = data.monsters.find((monster) => monster.id === monster1Id);
-  const monster2 = data.monsters.find((monster) => monster.id === monster2Id);
+  const monster1 = data.monsters.find(monster => monster.id === monster1Id);
+  const monster2 = data.monsters.find(monster => monster.id === monster2Id);
 
   if (!monster1 || !monster2) {
     return res.status(400).jsonp({ message: 'Invalid ID' });

@@ -12,13 +12,13 @@ const initialState: MonsterState = {
   selectedMonster: null,
 };
 
-export const monstersReducer = createReducer(initialState, (builder) => {
-  builder.addCase(fetchMonstersData.pending, (state) => ({
+export const monstersReducer = createReducer(initialState, builder => {
+  builder.addCase(fetchMonstersData.pending, state => ({
     ...state,
     monsters: [],
   }));
 
-  builder.addCase(fetchMonstersData.rejected, (state) => ({
+  builder.addCase(fetchMonstersData.rejected, state => ({
     ...state,
     monsters: [],
   }));

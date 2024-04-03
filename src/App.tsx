@@ -1,10 +1,12 @@
-import { AppContainer } from './App.styled'
-import { BattleOfMonsters } from './pages/battle-of-monsters/BattleOfMonsters'
+import React from 'react';
+
+import { AppContainer } from './App.styled';
+import { BattleOfMonsters } from './pages/battle-of-monsters/BattleOfMonsters.extended';
 
 const App = () => (
   <AppContainer>
-    <BattleOfMonsters /> 
+    <BattleOfMonsters />
   </AppContainer>
-)
+);
 
-export default App
+export default App;
