@@ -12,7 +12,6 @@ const initialState: MonsterState = {
   winner: null,
 };
 
-export const monstersReducerExtended = createReducer(
-  initialState,
-  builder => {},
-);
+export const monstersReducerExtended = createReducer(initialState, builder => {
+  // Implement
+});
