@@ -11,6 +11,7 @@ import {
   MonsterName,
   MonstersSection,
 } from './MonstersList.styled';
+import { setRandomMonster } from '../../reducers/monsters/monsters.actions.extended';
 
 type MonstersListProps = {
   monsters: Monster[];
@@ -24,9 +25,15 @@ const MonstersList: React.FC<MonstersListProps> = ({ monsters }) => {
   );
 
   const handleMonsterClick = (monster: Monster) => {
-    const value = selectedMonsterId === monster.id ? null : monster.id;
+    const value = monster.id;
+    const listwithOutSelected = monsters.filter(
+      monster => monster.id !== value,
+    );
+    const randomNumber = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+    console.log(listwithOutSelected[randomNumber]);
     setSelectedMonsterId(value);
     dispatch(setSelectedMonster(!value ? null : monster));
+    dispatch(setRandomMonster(listwithOutSelected[randomNumber]));
   };
 
   return (

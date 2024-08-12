@@ -16,12 +16,20 @@ import {
   PageContainer,
   StartBattleButton,
 } from './BattleOfMonsters.extended.styled';
+import {
+  monsterWins,
+  selectRandomMonster,
+} from '../../reducers/monsters/monsters.selectors.extended';
+import { fetchBattleWins } from '../../reducers/monsters/monsters.actions.extended';
+import { WinnerDisplay } from '../../components/winner-display/WinnerDisplay.extended';
 
 const BattleOfMonsters = () => {
   const dispatch = useAppDispatch();
 
   const monsters = useSelector(selectMonsters);
+  const randomMonster = useSelector(selectRandomMonster);
   const selectedMonster = useSelector(selectSelectedMonster);
+  const winner = useSelector(monsterWins);
 
   useEffect(() => {
     dispatch(fetchMonstersData());
@@ -29,6 +37,12 @@ const BattleOfMonsters = () => {
 
   const handleStartBattleClick = () => {
     // Fight!
+    dispatch(
+      fetchBattleWins({
+        monster1Id: selectedMonster?.id,
+        monster2Id: randomMonster?.id,
+      }),
+    );
   };
 
   return (
@@ -37,16 +51,21 @@ const BattleOfMonsters = () => {
 
       <MonstersList monsters={monsters} />
 
+      {winner && <WinnerDisplay text={winner?.winner.name} />}
+
       <BattleSection>
         <MonsterBattleCard
-          title={selectedMonster?.name || 'Player'}></MonsterBattleCard>
+          title={selectedMonster?.name || 'Player'}
+          monster={selectedMonster}></MonsterBattleCard>
         <StartBattleButton
           data-testid="start-battle-button"
           disabled={selectedMonster === null}
           onClick={handleStartBattleClick}>
           Start Battle
         </StartBattleButton>
-        <MonsterBattleCard title="Computer"></MonsterBattleCard>
+        <MonsterBattleCard
+          title="Computer"
+          monster={randomMonster}></MonsterBattleCard>
       </BattleSection>
     </PageContainer>
   );
